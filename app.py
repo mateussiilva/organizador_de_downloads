@@ -1,9 +1,10 @@
 
 import os 
 import pprint
+import shutil
 
 
-def createDiretorio(dir_padrao, name_dir):
+def criar_pasta(dir_padrao, name_dir):
     name_paste = os.path.join(dir_padrao,name_dir)
     try:
         os.mkdir(name_paste)
@@ -13,7 +14,7 @@ def createDiretorio(dir_padrao, name_dir):
     except Exception as error:
         print("NÃO CONSEGUE CRIAR A PASTA\n")
         print(error)
-    return 
+    return name_paste
 
 def separador_de_extensao(lista_arquivos:str) -> set:
     exetensoes_disponiveis = set()
@@ -28,6 +29,13 @@ def imprimir(valor):
     pprint.pprint(valor)
 
 
+def mover_arquivos(destino,path_arquivos):
+    try:
+        shutil.move(src=path_arquivos, dst=destino)
+    except Exception as e:
+        print(e)
+        
+        
 def pegar_extensao(nome_arquivo):
     exte = nome_arquivo.rfind('.') + 1
     return nome_arquivo[exte:]
@@ -52,15 +60,20 @@ for nome in nomes_extensoes:
 
 for chave in arquivos_separados.keys():
     for arquivo in lista_arquivos:
-        ...
         if pegar_extensao(arquivo) == chave:
             arquivos_separados[chave].append(arquivo)
     
-imprimir(arquivos_separados)
 
+pasta_de_arquivos = list()
 
+for nome in nomes_extensoes:
+    nome_pasta = 'arquivos' + nome.title()
+    if nome_pasta not in diretorios_existentes:
+        pasta = criar_pasta(PATH_DESTINY,nome_pasta)
+        pasta_de_arquivos.append(pasta)
 
-
+for valor in pasta_de_arquivos:
+    print(valor)
     
 
 
